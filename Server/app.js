@@ -3,6 +3,7 @@ import cors from "cors";
 import productRoutes from "./routes/productRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 
 
@@ -20,6 +21,9 @@ app.use("/products", productRoutes);
 app.use("/banners", bannerRoutes);
 
 app.use("/categories", categoryRoutes);
+
+// cart
+app.use("/cart", cartRoutes);
 
 // Home Route
 app.get("/", (req, res) => {

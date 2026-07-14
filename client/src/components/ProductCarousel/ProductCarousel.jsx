@@ -5,8 +5,8 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "./ProductCarousel.css";
 
-import ProductCard from "../ProductCard/ProductCard";
-import { getAllProducts } from "../Services/api";
+import ProductListCard from "../ProductCards/productListCard";
+import { getAllProducts } from "../../Services/api";
 
 function ProductCarousel() {
 
@@ -46,7 +46,7 @@ function ProductCarousel() {
             >
                 {products.map((product) => (
                     <SwiperSlide key={product.id}>
-                        <ProductCard product={product} />
+                        <ProductListCard product={product} />
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -44,3 +44,97 @@ export const getProductById = async (req, res) => {
         });
     }
 };
+
+
+
+
+
+// GET CATEGORIES
+export const getCategories = async (req, res) => {
+  try {
+    const categories = [...new Set(products.map((item) => item.category))];
+
+    res.json({
+      success: true,
+      total: categories.length,
+      categories,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// GET SUB CATEGORIES
+export const getSubCategories = async (req, res) => {
+  try {
+    const subCategories = [
+      ...new Set(products.map((item) => item.subCategory)),
+    ];
+
+    res.json({
+      success: true,
+      total: subCategories.length,
+      subCategories,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+// GET COLORS
+export const getColors = async (req, res) => {
+  try {
+    const colors = [...new Set(products.map((item) => item.color))];
+
+    res.json({
+      success: true,
+      colors,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// GET AGE GROUPS
+export const getAgeGroups = async (req, res) => {
+  try {
+    const ageGroups = [...new Set(products.map((item) => item.ageGroup))];
+
+    res.json({
+      success: true,
+      ageGroups,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// GET SIZES
+export const getSizes = async (req, res) => {
+  try {
+    const sizes = [...new Set(products.flatMap((item) => item.size))];
+
+    res.json({
+      success: true,
+      sizes,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

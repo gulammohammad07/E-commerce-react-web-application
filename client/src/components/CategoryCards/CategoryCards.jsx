@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCategories } from "../Services/api";
+import { getAllCategories } from "../../Services/api";
 import "./CategoryCards.css";
 
 function CategoryCards() {

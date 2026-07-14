@@ -1,0 +1,43 @@
+.empty-cart{
+
+    min-height:70vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.empty-cart h2{
+
+    font-size:36px;
+
+    margin-bottom:15px;
+
+}
+
+.empty-cart p{
+
+    color:#777;
+
+    margin-bottom:30px;
+
+}
+
+.shop-btn{
+
+    background:#ff4d6d;
+
+    color:#fff;
+
+    padding:14px 35px;
+
+    text-decoration:none;
+
+    border-radius:6px;
+
+}

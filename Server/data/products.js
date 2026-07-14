@@ -9,19 +9,27 @@ const products = [
     color: "Navy",
     price: 449,
     rating: 4.5,
-    // image: "https://images.pexels.com/photos/3661350/pexels-photo-3661350.jpeg"
+     "images": [
+      "https://i.imgur.com/R2PN9Wq.jpeg",
+      "https://i.imgur.com/IvxMPFr.jpeg",
+      "https://i.imgur.com/7eW9nXP.jpeg"
+    ],
   },
   {
     id: 2,
     name: "Striped T-Shirt",
-    category: "Boys",
+    category: "Girls",
     subCategory: "T-Shirts",
     ageGroup: "6-7 Years",
     size: ["6Y", "7Y"],
     color: "Green",
     price: 599,
     rating: 4.4,
-    image: "https://images.pexels.com/photos/1620760/pexels-photo-1620760.jpeg"
+     "images": [
+      "https://i.imgur.com/ZKGofuB.jpeg",
+      "https://i.imgur.com/GJi73H0.jpeg",
+      "https://i.imgur.com/633Fqrz.jpeg"
+    ],
   },
   {
     id: 3,
@@ -33,7 +41,10 @@ const products = [
     color: "Blue",
     price: 999,
     rating: 4.6,
-    image: "https://images.pexels.com/photos/769732/pexels-photo-769732.jpeg"
+     "images": [
+      "https://i.imgur.com/mp3rUty.jpeg",
+      "https://i.imgur.com/JQRGIc2.jpeg"
+    ],
   },
   {
     id: 4,
@@ -45,7 +56,11 @@ const products = [
     color: "Yellow",
     price: 899,
     rating: 4.3,
-    image: "https://images.pexels.com/photos/6311475/pexels-photo-6311475.jpeg"
+     "images": [
+      "https://i.imgur.com/9LFjwpI.jpeg",
+      "https://i.imgur.com/vzrTgUR.jpeg",
+      "https://i.imgur.com/p5NdI6n.jpeg"
+    ],
   },
   {
     id: 5,
@@ -57,7 +72,11 @@ const products = [
     color: "Olive",
     price: 699,
     rating: 4.4,
-    image: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg"
+     "images": [
+      "https://i.imgur.com/R3iobJA.jpeg",
+      "https://i.imgur.com/Wv2KTsf.jpeg",
+      "https://i.imgur.com/76HAxcA.jpeg"
+    ],
   },
   {
     id: 6,
@@ -69,7 +88,11 @@ const products = [
     color: "Yellow",
     price: 599,
     rating: 4.2,
-    image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg"
+    "images": [
+      "https://i.imgur.com/wXuQ7bm.jpeg",
+      "https://i.imgur.com/BZrIEmb.jpeg",
+      "https://i.imgur.com/KcT6BE0.jpeg"
+    ],
   },
   {
     id: 7,
@@ -81,7 +104,11 @@ const products = [
     color: "Navy",
     price: 649,
     rating: 4.3,
-    image: "https://images.pexels.com/photos/6311607/pexels-photo-6311607.jpeg"
+     "images": [
+      "https://i.imgur.com/cBuLvBi.jpeg",
+      "https://i.imgur.com/N1GkCIR.jpeg",
+      "https://i.imgur.com/kKc9A5p.jpeg"
+    ],
   },
   {
     id: 8,
@@ -93,7 +120,11 @@ const products = [
     color: "Sky Blue",
     price: 449,
     rating: 4.1,
-    image: "https://images.pexels.com/photos/3932877/pexels-photo-3932877.jpeg"
+     "images": [
+      "https://i.imgur.com/KeqG6r4.jpeg",
+      "https://i.imgur.com/xGQOw3p.jpeg",
+      "https://i.imgur.com/oO5OUjb.jpeg"
+    ],
   },
   {
     id: 9,
@@ -105,7 +136,10 @@ const products = [
     color: "Green",
     price: 1199,
     rating: 4.6,
-    image: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg"
+     "images": [
+      "https://i.imgur.com/UsFIvYs.jpeg",
+      "https://i.imgur.com/YIq57b6.jpeg"
+    ],
   },
   {
     id: 10,
@@ -165,7 +199,10 @@ const products = [
     color: "White",
     price: 699,
     rating: 4.5,
-    image: "https://images.pexels.com/photos/428339/pexels-photo-428339.jpeg"
+     "images": [
+      "https://i.imgur.com/UsFIvYs.jpeg",
+      "https://i.imgur.com/YIq57b6.jpeg"
+    ],
   },
   {
     id: 15,

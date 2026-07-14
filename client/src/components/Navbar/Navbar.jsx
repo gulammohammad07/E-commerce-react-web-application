@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaSearch , FaChevronDown, } from "react-icons/fa";
 import "./Navbar.css";
+import useCart from "../../hooks/useCart";
 
 function Navbar() {
+   const { cart } = useCart();
+
+  const cartCount = cart.items.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
   return (
     <nav className="navbar">
 
@@ -16,13 +23,13 @@ function Navbar() {
 
         {/* Shop Dropdown */}
         <li className="dropdown">
-          <Link to="/">Shop  Shop <FaChevronDown className="dropdown-icon" /></Link>
+          <Link to="/">Shop <FaChevronDown className="dropdown-icon" /></Link>
 
           <ul className="dropdown-menu">
-            <li><Link to="/shop/boys">Boys</Link></li>
-            <li><Link to="/shop/girls">Girls</Link></li>
-            <li><Link to="/shop/babies">Babies</Link></li>
-            <li><Link to="/shop/toddlers">Toddlers</Link></li>
+            <li><Link to="/products">Boys</Link></li>
+            <li><Link to="/products">Girls</Link></li>
+            <li><Link to="/products">Babies</Link></li>
+            <li><Link to="/products">Toddlers</Link></li>
           </ul>
         </li>
 
@@ -70,9 +77,17 @@ function Navbar() {
 
       {/* Right */}
       <div className="nav-right">
-        <Link to="/cart" className="cart-icon">
-          <FaShoppingCart size={22} />
-        </Link>
+         <Link to="/cart" className="cart-icon">
+
+      <FaShoppingCart />
+
+      {cartCount > 0 && (
+        <span className="cart-count">
+          {cartCount}
+        </span>
+      )}
+
+    </Link>
 
         <Link to="/login">
           <button className="login-btn">Login</button>
