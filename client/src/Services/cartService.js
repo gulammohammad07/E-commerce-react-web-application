@@ -1,6 +1,17 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:5000/cart";
+const DUPLICATE_POST_WINDOW = 1200;
+const addToCartRequests = new Map();
+
+const getCartItemKey = (cartItem) => {
+  return [
+    cartItem.productId,
+    cartItem.quantity,
+    cartItem.size || "",
+    cartItem.color || "",
+  ].join("|");
+};
 
 // Get Cart
 export const getCart = () => {
@@ -9,7 +20,30 @@ export const getCart = () => {
 
 // Add To Cart
 export const addToCart = (cartItem) => {
-  return axios.post(BASE_URL, cartItem);
+  const requestKey = getCartItemKey(cartItem);
+  const existingRequest = addToCartRequests.get(requestKey);
+  const now = Date.now();
+
+  if (existingRequest && now - existingRequest.startedAt < DUPLICATE_POST_WINDOW) {
+    return existingRequest.promise;
+  }
+
+  const promise = axios.post(BASE_URL, cartItem).finally(() => {
+    setTimeout(() => {
+      const latestRequest = addToCartRequests.get(requestKey);
+
+      if (latestRequest?.promise === promise) {
+        addToCartRequests.delete(requestKey);
+      }
+    }, DUPLICATE_POST_WINDOW);
+  });
+
+  addToCartRequests.set(requestKey, {
+    promise,
+    startedAt: now,
+  });
+
+  return promise;
 };
 
 // Update Quantity

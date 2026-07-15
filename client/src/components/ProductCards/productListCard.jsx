@@ -1,39 +1,22 @@
 import { Link } from "react-router-dom";
-import {  FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import "./productListCard.css";
 import useCart from "../../hooks/useCart";
-import { toast } from "react-toastify";
+
 const ProductListCard = ({ product }) => {
-  const { addToCart } = useCart();
-  const [submitting, setSubmitting] = useState(false);
+  const { addToCart, actionLoading } = useCart();
 
-  const handleAddToCart = async () => {
-    if (submitting) return;
-    setSubmitting(true);
-    try {
-      await addToCart({
-        productId: product.id,
-        quantity: 1,
-        size: product.size[0],
-        color: product.color,
-      });
-
-      toast.success("Product added to cart!");
-    } catch (error) {
-      toast.error("Failed to add product.");
-    } finally {
-      setSubmitting(false);
-    }
+  const handleAddToCart = () => {
+    addToCart({
+      productId: product.id,
+      quantity: 1,
+      size: product.size?.[0] || "",
+      color: product.color,
+    });
   };
+
   return (
     <div className="product-card">
-
-
-
-      
-
-      {/* Product Image */}
-
       <Link
         to={`/product/${product.id}`}
         className="product-image"
@@ -44,10 +27,7 @@ const ProductListCard = ({ product }) => {
         />
       </Link>
 
-      {/* Product Details */}
-
       <div className="product-info">
-
         <p className="product-brand">
           {product.brand}
         </p>
@@ -59,54 +39,37 @@ const ProductListCard = ({ product }) => {
           {product.name}
         </Link>
 
-        {/* Rating */}
-
         <div className="rating-row">
-
           <div className="stars">
             <FaStar />
             <span>{product.rating}</span>
           </div>
-
-          {/* <span className="reviews">
-            ({product.reviews})
-          </span> */}
-
         </div>
 
-        {/* Price */}
-
         <div className="price-row">
-
           <span className="sale-price">
-            ₹{product.price}
+            Rs.{product.price}
           </span>
 
           {product.price > product.discountPrice && (
             <span className="original-price">
-              ₹{product.price}
+              Rs.{product.price}
             </span>
           )}
-
         </div>
-
-
-        
-
-        {/* Button */}
 
         <button
           className="cart-btn"
-          disabled={product.stock === 0}
-           onClick={handleAddToCart}
+          disabled={product.stock === 0 || actionLoading}
+          onClick={handleAddToCart}
+          type="button"
         >
           Add to Cart
         </button>
-
       </div>
-
     </div>
   );
 };
 
 export default ProductListCard;
+

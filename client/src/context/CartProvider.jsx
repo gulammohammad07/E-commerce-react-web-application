@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import CartContext from "./CartContext";
@@ -25,6 +25,7 @@ const CartProvider = ({ children }) => {
 
   // Loading for Add / Remove / Update / Clear
   const [actionLoading, setActionLoading] = useState(false);
+  const addToCartLockRef = useRef(null);
 
   // Fetch Cart
   const fetchCart = async () => {
@@ -50,6 +51,13 @@ const CartProvider = ({ children }) => {
 
   // Add To Cart
   const addToCart = async (item) => {
+    const lockKey = JSON.stringify(item);
+
+    if (addToCartLockRef.current === lockKey) {
+      return;
+    }
+
+    addToCartLockRef.current = lockKey;
     setActionLoading(true);
 
     try {
@@ -67,6 +75,7 @@ const CartProvider = ({ children }) => {
         err.response?.data?.message || "Failed to add product."
       );
     } finally {
+      addToCartLockRef.current = null;
       setActionLoading(false);
     }
   };

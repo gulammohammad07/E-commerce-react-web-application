@@ -3,7 +3,8 @@ import axios from "axios";
 const BASE_URL = "http://localhost:5000";
 
 const api = axios.create({
-    baseURL: BASE_URL
+    baseURL: BASE_URL,
+    withCredentials: true,
 });
 
 export const getAllProducts = () => api.get("/products");
@@ -12,5 +13,13 @@ export const getProductById = (id) => api.get(`/products/${id}`);
 
 export const getAllBanners = () => api.get("/banners");
 export const getAllCategories = () => api.get("/categories");
+
+export const getCurrentUser = () => api.get("/auth/me");
+export const logoutUser = () => api.post("/auth/logout");
+
+export const getOrders = () => api.get("/orders");
+export const getOrderById = (orderId) => api.get(`/orders/${orderId}`);
+
+export const API_BASE_URL = BASE_URL;
 
 export default api;

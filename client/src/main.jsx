@@ -3,13 +3,16 @@ import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import App from './App.jsx'
 import  CartProvider  from './context/CartProvider.jsx';
+import AuthProvider from './context/AuthProvider.jsx';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 createRoot(document.getElementById('root')).render(
    <BrowserRouter>
-   <CartProvider>
-    <App />
+   <AuthProvider>
+    <CartProvider>
+      <App />
+    </CartProvider>
      <ToastContainer
           position="top-right"
           autoClose={2500}
@@ -21,6 +24,6 @@ createRoot(document.getElementById('root')).render(
           theme="colored"
         />
 
-   </CartProvider>
+   </AuthProvider>
   </BrowserRouter>,
 )
