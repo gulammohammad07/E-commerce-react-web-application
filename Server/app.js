@@ -7,10 +7,18 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
-dotenv.config({
-  path: new URL(".env", import.meta.url),
-});
+// dotenv.config({
+//   path: new URL(".env", import.meta.url),
+// });
+dotenv.config();
+
+
+
+console.log("Merchant ID:", process.env.BRAINTREE_MERCHANT_ID);
+console.log("Public Key:", process.env.BRAINTREE_PUBLIC_KEY);
+console.log("Private Key:", process.env.BRAINTREE_PRIVATE_KEY);
 
 const app = express();
 
@@ -39,6 +47,8 @@ app.use("/auth", authRoutes);
 
 // orders
 app.use("/orders", orderRoutes);
+
+app.use("/payment", paymentRoutes);
 
 // Home Route
 app.get("/", (req, res) => {

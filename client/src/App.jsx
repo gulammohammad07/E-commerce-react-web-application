@@ -29,14 +29,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
-              <Checkout />
-            </ProtectedRoute>
-          }
-        />
+       <Route path="/checkout" element={<Checkout />} />
         <Route
           path="/account"
           element={
@@ -48,9 +41,9 @@ function App() {
         <Route
           path="/account/orders"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <AccountOrders />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
         <Route
