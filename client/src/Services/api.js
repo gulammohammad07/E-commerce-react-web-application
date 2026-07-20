@@ -20,6 +20,12 @@ export const logoutUser = () => api.post("/auth/logout");
 export const getOrders = () => api.get("/orders");
 export const getOrderById = (orderId) => api.get(`/orders/${orderId}`);
 
+export const getClientToken = () => api.get("/payment/token");
+
+export const processPayment = (nonce, amount) =>
+  api.post("/payment/checkout", { nonce, amount }); 
+
+
 export const API_BASE_URL = BASE_URL;
 
 export default api;
