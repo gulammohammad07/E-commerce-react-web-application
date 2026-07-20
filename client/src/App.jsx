@@ -13,6 +13,7 @@ import OrderDetails from "./pages/Account/OrderDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Loader from "./components/Loader/Loader";
 import useCart from "./hooks/useCart";
+import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 
 function App() {
    const { actionLoading  } = useCart();
@@ -29,7 +30,14 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-       <Route path="/checkout" element={<Checkout />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/account"
           element={
@@ -41,9 +49,9 @@ function App() {
         <Route
           path="/account/orders"
           element={
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <AccountOrders />
-            // </ProtectedRoute>
+             </ProtectedRoute>
           }
         />
         <Route
@@ -54,6 +62,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/order-success"
+  element={<OrderSuccess />}
+/>
         
         </Route>
       </Routes>

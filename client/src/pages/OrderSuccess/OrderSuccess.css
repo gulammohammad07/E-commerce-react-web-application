@@ -1,0 +1,169 @@
+.order-success-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.order-success-card {
+  width: 100%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.success-icon {
+  width: 90px;
+  height: 90px;
+  background: #28a745;
+  color: #fff;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
+}
+
+.order-success-card h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.success-message {
+  color: #666;
+  margin-bottom: 35px;
+  font-size: 15px;
+}
+
+.order-summary {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  font-size: 15px;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.summary-row span {
+  color: #666;
+}
+
+.summary-row strong {
+  color: #222;
+}
+
+.paid {
+  color: #28a745;
+  font-weight: 700;
+}
+
+.delivery-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #eefaf1;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 25px;
+}
+
+.truck-icon {
+  font-size: 32px;
+  color: #28a745;
+}
+
+.delivery-box h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.delivery-box p {
+  margin-top: 6px;
+  color: #555;
+  font-size: 15px;
+}
+
+.confirmation-text {
+  color: #777;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary-btn {
+  background: #ff4f87;
+  color: white;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.primary-btn:hover {
+  background: #e84375;
+}
+
+.secondary-btn {
+  background: white;
+  border: 2px solid #ff4f87;
+  color: #ff4f87;
+}
+
+.secondary-btn:hover {
+  background: #ff4f87;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .order-success-card {
+    padding: 25px;
+  }
+
+  .order-success-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .summary-row {
+    font-size: 14px;
+  }
+
+  .delivery-box {
+    padding: 15px;
+  }
+
+  .truck-icon {
+    font-size: 28px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
