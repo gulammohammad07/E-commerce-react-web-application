@@ -21,7 +21,10 @@ export const generateClientToken = async (req, res) => {
 
 export const processPayment = async (req, res) => {
   try {
+     console.log("Request Body:", req.body);
     const { nonce, amount } = req.body;
+      console.log("Nonce:", nonce);
+  console.log("Amount:", amount);
 
     if (!nonce || !amount) {
       return res.status(400).json({

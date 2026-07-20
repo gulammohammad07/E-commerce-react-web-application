@@ -2,21 +2,21 @@ import "./CartSummary.css";
 
 import useCart from "../../../hooks/useCart";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-// import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const CartSummary = () => {
-    // const navigate = useNavigate();
-    // const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
 
     const {
         cart,
         clearCart
     } = useCart();
 
-    // const handleCheckout = () => {
-    //     navigate(isAuthenticated ? "/checkout" : "/login?redirect=/checkout");
-    // };
+    const handleCheckout = () => {
+        navigate(isAuthenticated ? "/checkout" : "/login?redirect=/checkout");
+    };
 
     return (
 
@@ -70,15 +70,13 @@ const CartSummary = () => {
 
             <button
                 className="checkout-btn"
-                // onClick={handleCheckout}
+                onClick={handleCheckout}
             >
 
                 Checkout
 
             </button>
-            <Link to="/checkout">
-  <button>Proceed To Checkout</button>
-</Link>
+           
 
             <button
                 className="clear-btn"
