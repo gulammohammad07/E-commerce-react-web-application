@@ -1,64 +1,95 @@
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaPinterestP,
+  FaYoutube,
+  FaWhatsapp,
+  FaCcVisa,
+  FaCcMastercard,
+  FaCcPaypal,
+  FaGooglePay,
+} from "react-icons/fa";
+
 import "./Footer.css";
 
-function Footer() {
-    const currentYear = new Date().getFullYear();
+const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-container">
 
-        {/* Logo Section */}
-        <div className="footer-about">
-          <h2>LittleTrendz</h2>
-          <p>
-            Quality products for every lifestyle.
-            Discover the latest trends for Men,
-            Women, and Kids.
-          </p>
+      <div className="footer-logo">
+        <h1>LittleTrendz</h1>
+        <p>Premium Fashion for Little Ones</p>
+      </div>
+
+      <div className="footer-grid">
+
+        <div>
+          <h3>SHOP</h3>
+
+          <a href="#">Boys</a>
+          <a href="#">Girls</a>
+          <a href="#">Babies</a>
+          <a href="#">New Arrivals</a>
+          <a href="#">Best Sellers</a>
         </div>
 
-        {/* Shop */}
-        <div className="footer-column">
-          <h3>Shop</h3>
-          <ul>
-            <li><a href="/">Boys</a></li>
-            <li><a href="/">Girls</a></li>
-            <li><a href="/">babies</a></li>
-            <li><a href="/">New Arrivals</a></li>
-            <li><a href="/">Best Sellers</a></li>
-          </ul>
+        <div>
+          <h3>CUSTOMER CARE</h3>
+
+          <a href="#">Contact Us</a>
+          <a href="#">FAQs</a>
+          <a href="#">Shipping Policy</a>
+          <a href="#">Returns</a>
+          <a href="#">Track Order</a>
         </div>
 
-        {/* Customer Support */}
-        <div className="footer-column">
-          <h3>Customer Support</h3>
-          <ul>
-            <li><a href="/">Contact Us</a></li>
-            <li><a href="/">FAQs</a></li>
-            <li><a href="/">Shipping Policy</a></li>
-            <li><a href="/">Return Policy</a></li>
-            <li><a href="/">Size Guide</a></li>
-          </ul>
+        <div>
+          <h3>PARENT GUIDE</h3>
+
+          <a href="#">Size Guide</a>
+          <a href="#">Baby Care Tips</a>
+          <a href="#">Fabric Care</a>
+          <a href="#">Gift Cards</a>
+          <a href="#">Safety & Quality</a>
         </div>
 
-        {/* Company */}
-        <div className="footer-column">
-          <h3>Company</h3>
-          <ul>
-            <li><a href="/">About Us</a></li>
-            <li><a href="/">Our Story</a></li>
-            <li><a href="/">Careers</a></li>
-            <li><a href="/">Privacy Policy</a></li>
-            <li><a href="/">Terms & Conditions</a></li>
-          </ul>
+        <div>
+          <h3>ABOUT US</h3>
+
+          <a href="#">Our Story</a>
+          <a href="#">Our Mission</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+
+        <div>
+          <h3>FOLLOW US</h3>
+
+          <a href="#"><FaInstagram /> Instagram</a>
+          <a href="#"><FaFacebookF /> Facebook</a>
+          <a href="#"><FaPinterestP /> Pinterest</a>
+          <a href="#"><FaYoutube /> YouTube</a>
+          <a href="#"><FaWhatsapp /> WhatsApp</a>
         </div>
 
       </div>
 
-     <div className="footer-bottom">
-        <p>© {currentYear} LittleTrendz. All Rights Reserved.</p>
-</div>
+      <div className="footer-bottom">
+
+        <p>© 2026 LittleTrendz. All Rights Reserved.</p>
+
+        <div className="payment-icons">
+          <FaCcVisa />
+          <FaCcMastercard />
+          <FaCcPaypal />
+          <FaGooglePay />
+        </div>
+
+      </div>
+
     </footer>
   );
-}
+};
 
 export default Footer;

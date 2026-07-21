@@ -1,94 +1,71 @@
 .footer {
-  /* background: #f8f9fb; */
-  background-color: #3f4040;
-  border-top: 1px solid #e5e7eb;
-  margin-top: 80px;
+  background: #000;
+  color: #fff;
+  padding: 70px 80px 25px;
 }
 
-.footer-container {
-  max-width: 1300px;
-  margin: auto;
-  padding: 70px 40px;
+.footer-logo {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.footer-logo h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.footer-logo p {
+  color: #bdbdbd;
+  font-size: 16px;
+}
+
+.footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 50px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 60px;
 }
 
-.footer-about h2 {
-  color: #ff6b81;
-  font-size: 32px;
-  margin-bottom: 15px;
-}
-
-.footer-about p {
-  color: #fff;
-  line-height: 1.8;
+.footer-grid h3 {
   font-size: 15px;
-  max-width: 280px;
-}
-
-.footer-column h3 {
-  color: #fff;
+  letter-spacing: 1px;
   margin-bottom: 20px;
-  font-size: 18px;
-  font-weight: 600;
 }
 
-.footer-column ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-column ul li {
-  margin-bottom: 14px;
-}
-
-.footer-column ul li a {
-  color: #fff;
+.footer-grid a {
+  display: block;
+  color: #cfcfcf;
   text-decoration: none;
-  transition: 0.3s;
+  margin-bottom: 12px;
+  transition: .3s;
   font-size: 15px;
-font-weight: 400;
 }
 
-.footer-column ul li a:hover {
-  color: #ff6b81;
-  padding-left: 5px;
+.footer-grid a:hover {
+  color: #ffffff;
+}
+
+.footer-grid svg {
+  margin-right: 10px;
 }
 
 .footer-bottom {
-  border-top: 1px solid #e5e7eb;
-  text-align: center;
-  padding: 22px;
+  margin-top: 60px;
+  padding-top: 25px;
+  border-top: 1px solid #2c2c2c;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footer-bottom p {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 400;
+  color: #a8a8a8;
 }
 
-/* Responsive */
-
-@media (max-width: 992px) {
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-}
-
-@media (max-width: 600px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 50px 25px;
-  }
-
-  .footer-about p {
-    max-width: 100%;
-  }
-
-  .footer-column ul li a:hover {
-    padding-left: 0;
-  }
+.payment-icons {
+  display: flex;
+  gap: 18px;
+  font-size: 34px;
 }
