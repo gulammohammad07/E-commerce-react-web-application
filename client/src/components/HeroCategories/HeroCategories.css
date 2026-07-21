@@ -1,0 +1,44 @@
+.hero-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: calc(100vh - 80px);
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.hero-card:hover img {
+  transform: scale(1.08);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 50px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.05)
+  );
+}
+
+.hero-overlay h2 {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}

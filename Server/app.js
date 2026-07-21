@@ -8,6 +8,8 @@ import cartRoutes from "./routes/cartRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import megaMenuRoutes from "./routes/megaMenuRoutes.js";
+
 
 // dotenv.config({
 //   path: new URL(".env", import.meta.url),
@@ -33,6 +35,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //product routes
+
+app.use("/mega-menu", megaMenuRoutes);
+
 app.use("/products", productRoutes);
 
 app.use("/banners", bannerRoutes);
