@@ -1,15 +1,11 @@
-import HeroCarousel from "../../components/HeroCarousel/HeroCarousel";
-import CategoryCards from "../../components/CategoryCards/CategoryCards";
-import ProductCarousel from "../../components/ProductCarousel/ProductCarousel";
+import HeroCategories from "../../components/HeroCategories/HeroCategories";
 
 function Home() {
-    return (
-        <>
-            <HeroCarousel />
-            <CategoryCards />
-            <ProductCarousel />
-        </>
-    );
+  return (
+    <>
+      <HeroCategories />
+    </>
+  );
 }
 
 export default Home;
