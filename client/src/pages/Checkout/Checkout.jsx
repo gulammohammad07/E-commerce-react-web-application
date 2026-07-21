@@ -15,13 +15,33 @@ const Checkout = () => {
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState(null);
 
+  const [address, setAddress] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
+    country: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const navigate = useNavigate();
 
   const dropinContainer = useRef(null);
   useEffect(() => {
     const loadToken = async () => {
       const res = await getClientToken();
-      console.log("dmfdofmo", res);
       setClientToken(res.data.clientToken);
     };
 
@@ -59,74 +79,76 @@ const Checkout = () => {
     };
   }, [clientToken]);
 
- const handlePayment = async () => {
-  if (!instance) {
-    alert("Payment UI is still loading.");
-    return;
-  }
-
-  try {
-    // Get payment nonce from Braintree
-    const { nonce } = await instance.requestPaymentMethod();
-
-    // Process payment
-    const res = await processPayment({
-      nonce,
-      amount: cart.total,
-    });
-
-    console.log("Payment Response:", res.data);
-
-    // Check payment success
-    if (!res.data.success) {
-      toast.error("Payment Failed");
+  const handlePayment = async () => {
+    if (!instance) {
+      alert("Payment UI is still loading.");
       return;
     }
 
-    // Create Order
-    const order = {
-      orderId: `ORD-${Date.now()}`,
-      orderDate: new Date().toLocaleDateString(),
-      paymentMethod: "Credit Card",
-      paymentStatus: "Paid",
-      estimatedDelivery: "24 Jul - 27 Jul",
-      items: cart.items,
-      subtotal: cart.subtotal,
-      tax: cart.tax,
-      shipping: cart.shipping,
-      total: cart.total,
-    };
+    try {
+      // Get payment nonce from Braintree
+      const { nonce } = await instance.requestPaymentMethod();
 
-    // Save latest order
-    localStorage.setItem("latestOrder", JSON.stringify(order));
+      // Process payment
+      const res = await processPayment({
+        nonce,
+        amount: cart.total,
+      });
 
-    // Save all orders
-    const orders =
-      JSON.parse(localStorage.getItem("orders")) || [];
+      console.log("Payment Response:", res.data);
 
-    orders.unshift(order);
+      // Check payment success
+      if (!res.data.success) {
+        toast.error("Payment Failed");
+        return;
+      }
 
-    localStorage.setItem(
-      "orders",
-      JSON.stringify(orders)
-    );
+      // Create Order
+      const order = {
+        orderId: `ORD-${Date.now()}`,
+        orderDate: new Date().toLocaleDateString(),
+        address,
+        paymentMethod: "",
+        status: "Shipped",
+        paymentStatus: "Paid",
+        estimatedDelivery: "3 to 4 days",
+        items: cart.items,
+        subtotal: cart.subtotal,
+        tax: cart.tax,
+        shipping: cart.shipping,
+        total: cart.total,
+      };
 
-    console.log(
-      "Orders Saved:",
-      JSON.parse(localStorage.getItem("orders"))
-    );
+      // Save latest order
+      localStorage.setItem("latestOrder", JSON.stringify(order));
 
-    // Optional: Clear Cart
-    // await clearCart();
+      // Save all orders
+      const orders =
+        JSON.parse(localStorage.getItem("orders")) || [];
 
-    toast.success("Order Placed Successfully!");
+      orders.unshift(order);
 
-    navigate("/order-success");
-  } catch (error) {
-    console.error("Payment Error:", error);
-    toast.error("Something went wrong.");
-  }
-};
+      localStorage.setItem(
+        "orders",
+        JSON.stringify(orders)
+      );
+
+      console.log(
+        "Orders Saved:",
+        JSON.parse(localStorage.getItem("orders"))
+      );
+
+      // Optional: Clear Cart
+      // await clearCart();
+
+      toast.success("Order Placed Successfully!");
+
+      navigate("/order-success");
+    } catch (error) {
+      console.error("Payment Error:", error);
+      toast.error("Something went wrong.");
+    }
+  };
 
   return (
     <main className="checkout-page">
@@ -152,40 +174,67 @@ const Checkout = () => {
           <form className="address-form">
             <input
               type="text"
+              name="firstName"
               placeholder="First Name"
-              defaultValue="Touqeer"
+              value={address.firstName}
+              onChange={handleChange}
             />
 
-            <input type="text" placeholder="Last Name" defaultValue="Khan" />
+            <input type="text" name="lastName" placeholder="Last Name" value={address.lastName}
+              onChange={handleChange} />
 
             <input
               type="email"
               placeholder="Email"
-              defaultValue="touqeer@gmail.com"
+              name="email"
+              value={address.email}
+              onChange={handleChange}
             />
 
             <input
               type="tel"
               placeholder="Phone Number"
-              defaultValue="9876543210"
+              name="phone"
+              value={address.phone}
+              onChange={handleChange}
             />
 
-            <textarea
-              placeholder="Street Address"
-              defaultValue="Flat 101, XYZ Apartment"
-            />
 
-            <input type="text" placeholder="City" defaultValue="Mumbai" />
 
-            <input type="text" placeholder="State" defaultValue="Maharashtra" />
+            <input type="text" name="city" placeholder="City" value={address.city}
+              onChange={handleChange} />
 
-            <input type="text" placeholder="Pincode" defaultValue="400001" />
+            <input type="text" name="state" placeholder="State" value={address.state}
+              onChange={handleChange} />
 
-            <input type="text" placeholder="Country" defaultValue="India" />
+            <input type="text" name="pincode" placeholder="Pincode" value={address.pincode}
+              onChange={handleChange} />
+
+            <input type="text" name="country" placeholder="Country" value={address.country}
+              onChange={handleChange} />
           </form>
         </div>
 
         <div className="checkout-section">
+          <aside className="checkout-summary">
+            <h2>Order total</h2>
+            <div>
+              <span>Subtotal</span>
+              <strong>₹{cart.subtotal}</strong>
+            </div>
+            <div>
+              <span>Tax</span>
+              <strong>₹{cart.tax}</strong>
+            </div>
+            <div>
+              <span>Shipping</span>
+              <strong>₹{cart.shipping}</strong>
+            </div>
+            <div className="checkout-total">
+              <span>Total</span>
+              <strong>₹{cart.total}</strong>
+            </div>
+          </aside>
           <h2>
             <FaCreditCard />
             Payment
@@ -201,26 +250,7 @@ const Checkout = () => {
           </button>
         </div>
 
-        {/* <aside className="checkout-summary">
-          <h2>Order total</h2>
-          <div>
-            <span>Subtotal</span>
-            <strong>₹{cart.subtotal}</strong>
-          </div>
-          <div>
-            <span>Tax</span>
-            <strong>₹{cart.tax}</strong>
-          </div>
-          <div>
-            <span>Shipping</span>
-            <strong>₹{cart.shipping}</strong>
-          </div>
-          <div className="checkout-total">
-            <span>Total</span>
-            <strong>₹{cart.total}</strong>
-          </div>
-          <Link to="/account/orders">View orders</Link>
-        </aside> */}
+        
       </section>
     </main>
   );

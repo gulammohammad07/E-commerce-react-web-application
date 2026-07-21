@@ -30,7 +30,7 @@
 
 .checkout-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 340px;
+    grid-template-columns: 1fr 1fr;
     gap: 22px;
     align-items: start;
 }
