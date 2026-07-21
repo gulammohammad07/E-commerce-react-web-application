@@ -51,10 +51,10 @@ const OrderSuccess = () => {
             <strong className="paid">Paid</strong>
           </div>
 
-          <div className="summary-row">
+          {/* <div className="summary-row">
             <span>Payment Method</span>
             <strong>{order.paymentMethod}</strong>
-          </div>
+          </div> */}
         </div>
 
         {/* Delivery Box */}

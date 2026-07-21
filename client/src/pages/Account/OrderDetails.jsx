@@ -1,22 +1,73 @@
 import { FaCheckCircle, FaMapMarkerAlt, FaCreditCard } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./OrderDetails.css";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { orderTimeline } from "./OrderTimeline/OrderTimline";
 
 const OrderDetails = () => {
   const [order, setOrder] = useState(null);
+  const { orderId } = useParams();
   const navigate = useNavigate();
+  const statusOrder = [
+    "confirmed",
+    "shipped",
+    "outForDelivery",
+    "delivered",
+  ];
+
+ const activeIndex = statusOrder.indexOf(order?.status);
+
+
+
+
+  const handleCancelOrder = () => {
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this order?"
+    );
+
+    if (!confirmCancel) return;
+
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    const updatedOrders = orders.map((item) =>
+      item.orderId === order.orderId
+        ? {
+          ...item,
+          isCancelled: true,
+          cancelledAt: new Date().toLocaleString(),
+        }
+        : item
+    );
+
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
+
+    const updatedOrder = updatedOrders.find(
+      (item) => item.orderId === order.orderId
+    );
+
+    localStorage.setItem("latestOrder", JSON.stringify(updatedOrder));
+
+    setOrder(updatedOrder);
+
+    toast.success("Order cancelled successfully!");
+  };
 
   useEffect(() => {
-    const latestOrder = JSON.parse(localStorage.getItem("latestOrder"));
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-    if (!latestOrder) {
-      navigate("/");
+    const currentOrder = orders.find(
+      (item) => item.orderId === orderId
+    );
+
+    if (!currentOrder) {
+      navigate("/account/orders");
       return;
     }
 
-    setOrder(latestOrder);
-  }, [navigate]);
+    setOrder(currentOrder);
+  }, [orderId, navigate]);
 
   if (!order) return null;
 
@@ -29,10 +80,10 @@ const OrderDetails = () => {
         <div className="order-header">
           <h1>Order #{order.orderId}</h1>
 
-          <span className="status confirmed">
-            <FaCheckCircle />
-            Confirmed
-          </span>
+        <span className={`status ${order.status}`}>
+  <FaCheckCircle />
+  {order.status}
+</span>
         </div>
 
         <div className="order-info">
@@ -49,35 +100,29 @@ const OrderDetails = () => {
         {/* Timeline */}
 
         <div className="timeline">
+  {orderTimeline.map((step, index) => (
+    <React.Fragment key={step.id}>
+      <div
+        className={`step ${
+          index <= activeIndex ? "active" : ""
+        }`}
+      >
+        <span className="icon">{step.icon}</span>
+        <span>{step.title}</span>
+      </div>
 
-          <div className="step active">
-            <FaCheckCircle />
-            <span>Confirmed</span>
-          </div>
+      {index !== orderTimeline.length - 1 && (
+        <div
+          className={`line ${
+            index < activeIndex ? "active-line" : ""
+          }`}
+        />
+      )}
+    </React.Fragment>
+  ))}
+</div>
 
-          <div className="line"></div>
-
-          <div className="step">
-            🚚
-            <span>Shipped</span>
-          </div>
-
-          <div className="line"></div>
-
-          <div className="step">
-            📦
-            <span>Out for Delivery</span>
-          </div>
-
-          <div className="line"></div>
-
-          <div className="step">
-            🏠
-            <span>Delivered</span>
-          </div>
-
-        </div>
-
+       
         <div className="order-grid">
 
           {/* Products */}
@@ -117,18 +162,28 @@ const OrderDetails = () => {
           {/* Address */}
 
           <div className="card">
-
             <h2>
               <FaMapMarkerAlt />
               Delivery Address
             </h2>
 
-            <p>Touqeer ansari</p>
-            <p>Flat 101, XYZ Apartment</p>
-            <p>Mumbai, Maharashtra</p>
-            <p>400001</p>
-            <p>India</p>
+            <p>
+              {order?.address?.firstName} {order?.address?.lastName}
+            </p>
 
+            <p>{order?.address?.street}</p>
+
+            <p>
+              {order?.address?.city}, {order?.address?.state}
+            </p>
+
+            <p>{order?.address?.pincode}</p>
+
+            <p>{order?.address?.country}</p>
+
+            <p>{order?.address?.phone}</p>
+
+            <p>{order?.address?.email}</p>
           </div>
 
           {/* Payment */}
@@ -140,10 +195,10 @@ const OrderDetails = () => {
               Payment Details
             </h2>
 
-            <p>
+            {/* <p>
               Method :
               <strong> {order.paymentMethod}</strong>
-            </p>
+            </p> */}
 
             <p>
               Status :
@@ -190,12 +245,34 @@ const OrderDetails = () => {
 
         </div>
 
-        <button
-          className="continue-btn"
-          onClick={() => navigate("/")}
-        >
-          Continue Shopping
-        </button>
+        <div className="btns">
+          {order?.isCancelled ? (
+
+            <div className="cancel-order-message">
+              <h3>❌ Order Cancelled</h3>
+              <p>This order has been cancelled successfully.</p>
+
+              <p>
+                <strong>Cancelled On:</strong> {order.cancelledAt}
+              </p>
+            </div>
+          ) : (
+            <button onClick={handleCancelOrder} className="cancel-btn">
+              Cancel Order
+            </button>
+          )}
+
+          <button
+            className="continue-btn"
+            onClick={() => navigate("/")}
+          >
+            Continue Shopping
+          </button>
+        </div>
+
+
+
+
 
       </div>
     </main>
