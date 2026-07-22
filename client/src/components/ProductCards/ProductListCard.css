@@ -1,168 +1,168 @@
-.product-card {
+.image-wrapper {
   position: relative;
-  background: #fff;
-  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid #eee;
-  transition: .3s;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
 }
 
 .product-image {
   display: block;
-  background: #f8f8f8;
-  aspect-ratio: 1/1;
-  overflow: hidden;
 }
 
 .product-image img {
   width: 100%;
-  height: 100%;
+  height: 500px;
   object-fit: cover;
   transition: .4s;
 }
 
 .product-card:hover img {
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 
-.discount-badge {
+/* -----------------------------
+   Size Panel
+------------------------------*/
+
+.size-overlay {
+
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #ff4d4f;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 5;
-}
 
-.wishlist-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: none;
-  background: #fff;
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  left: 0;
+  bottom: -110px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: .3s;
-  z-index: 5;
-}
-
-.wishlist-btn:hover {
-  background: #ff4d4f;
-  color: #fff;
-}
-
-.product-info {
-  padding: 18px;
-}
-
-.product-brand {
-  color: #888;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.product-title {
-  display: block;
-  color: #222;
-  text-decoration: none;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.5;
-  height: 50px;
-  overflow: hidden;
-  margin-bottom: 14px;
-}
-
-.product-title:hover {
-  color: #0d6efd;
-}
-
-.rating-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.stars {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #ffb400;
-  font-weight: 600;
-}
-
-.reviews {
-  color: #777;
-  font-size: 14px;
-}
-
-.price-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.sale-price {
-  color: #0d6efd;
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.original-price {
-  color: #999;
-  text-decoration: line-through;
-}
-
-.stock {
-  font-size: 14px;
-  margin-bottom: 18px;
-}
-
-.in-stock {
-  color: #2e7d32;
-}
-
-.out-stock {
-  color: #d32f2f;
-}
-
-.cart-btn {
   width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 10px;
-  background: #0d6efd;
-  color: white;
-  font-size: 15px;
+
+  background: rgba(255,255,255,.98);
+  border: 1px solid #DADADA;
+
+  padding: 14px 18px;
+
+  transition: .35s ease;
+
+  z-index: 20;
+
+}
+
+.product-card:hover .size-overlay{
+
+  bottom:0;
+
+}
+
+.product-title{
+  text-decoration: none;
+  color: #111;
   font-weight: 600;
-  cursor: pointer;
-  transition: .3s;
 }
 
-.cart-btn:hover:not(:disabled) {
-  background: #0b5ed7;
+.size-heading{
+
+  display:flex;
+  justify-content: center;
+
+  font-size:16px;
+
+  font-weight:600;
+
+  text-transform:uppercase;
+
+  color:#666;
+
+  margin-bottom:10px;
+
 }
 
-.cart-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.size-list{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:10px;
+
+}
+
+.size-btn{
+
+  width:42px;
+
+  height:42px;
+
+  /* border:1px solid #ddd; */
+
+  /* background:#fff; */
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  transition:.25s;
+
+}
+
+.size-btn:hover{
+
+  background:#111;
+
+  color:#fff;
+
+  border-color:#111;
+
+}
+
+/* -----------------------------
+   Wishlist
+------------------------------*/
+
+.wishlist-btn{
+
+  position:absolute;
+
+  top:18px;
+
+  right:18px;
+
+  width:42px;
+
+  height:42px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  opacity:0;
+
+  transition:.3s;
+
+  z-index:30;
+
+  cursor:pointer;
+
+}
+
+.product-card:hover .wishlist-btn{
+
+  opacity:1;
+
+}
+.product-swiper .swiper-button-prev,
+.product-swiper .swiper-button-next {
+  width: 28px;
+  height: 28px;
+  color: #111;
+  background: transparent;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.product-swiper .swiper-button-prev::after,
+.product-swiper .swiper-button-next::after {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.product-card:hover .swiper-button-prev,
+.product-card:hover .swiper-button-next {
+  opacity: 1;
 }

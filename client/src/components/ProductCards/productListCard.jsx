@@ -1,33 +1,80 @@
 import { Link } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaHeart } from "react-icons/fa";
 import "./productListCard.css";
-import useCart from "../../hooks/useCart";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 const ProductListCard = ({ product }) => {
-  const { addToCart, actionLoading } = useCart();
-
-  const handleAddToCart = () => {
-    addToCart({
-      productId: product.id,
-      quantity: 1,
-      size: product.size?.[0] || "",
-      color: product.color,
-    });
-  };
+  const discount =
+    product.discountPrice && product.discountPrice > product.price
+      ? Math.round(
+          ((product.discountPrice - product.price) /
+            product.discountPrice) *
+            100
+        )
+      : 0;
 
   return (
     <div className="product-card">
-      <Link
-        to={`/product/${product.id}`}
-        className="product-image"
-      >
-        <img
-          src={product.images?.[0]}
-          alt={product.name}
-        />
-      </Link>
+      <div className="image-wrapper">
+
+        <Link
+          to={`/product/${product.id}`}
+          className="product-image"
+        >
+          <Swiper
+            slidesPerView={1}
+            navigation
+            loop
+            modules={[Navigation]}
+            className="product-swiper"
+          >
+            {product.images?.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={image}
+                  alt={product.name}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Link>
+
+        <button className="wishlist-btn">
+          <FaHeart />
+        </button>
+
+        {/* Hover Size Panel */}
+
+        <div className="size-overlay">
+
+          <span className="size-heading">
+            SELECT SIZE
+          </span>
+
+          <div className="size-list">
+
+            {product.size?.map((size) => (
+              <button
+                key={size}
+                className="size-btn"
+              >
+                {size}
+              </button>
+            ))}
+
+          </div>
+
+        </div>
+
+      </div>
 
       <div className="product-info">
+
         <p className="product-brand">
           {product.brand}
         </p>
@@ -40,36 +87,33 @@ const ProductListCard = ({ product }) => {
         </Link>
 
         <div className="rating-row">
-          <div className="stars">
-            <FaStar />
-            <span>{product.rating}</span>
-          </div>
+          <FaStar />
+          <span>{product.rating}</span>
         </div>
 
         <div className="price-row">
+
           <span className="sale-price">
-            Rs.{product.price}
+            ₹{product.price}
           </span>
 
-          {product.price > product.discountPrice && (
-            <span className="original-price">
-              Rs.{product.price}
-            </span>
+          {product.discountPrice > product.price && (
+            <>
+              <span className="original-price">
+                ₹{product.discountPrice}
+              </span>
+
+              <span className="discount">
+                {discount}% OFF
+              </span>
+            </>
           )}
+
         </div>
 
-        <button
-          className="cart-btn"
-          disabled={product.stock === 0 || actionLoading}
-          onClick={handleAddToCart}
-          type="button"
-        >
-          Add to Cart
-        </button>
       </div>
     </div>
   );
 };
 
 export default ProductListCard;
-
