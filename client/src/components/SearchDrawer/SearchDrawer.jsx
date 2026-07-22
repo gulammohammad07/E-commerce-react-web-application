@@ -1,42 +1,69 @@
 import { FaTimes, FaSearch } from "react-icons/fa";
-import "./SearchDrawer.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./SearchDrawer.css";
+
 import ProductListCard from "../ProductCards/productListCard";
-import { getAllProducts } from "../../Services/api";
+import { searchProducts } from "../../Services/api";
 
 const SearchDrawer = ({ isOpen, onClose }) => {
-  const [products, setProducts] = useState([]);
-  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
 
-  const filteredProducts = products
-    .filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()),
-    )
-    .slice(0, 4);
+  const [results, setResults] = useState({
+    suggestions: [],
+    products: [],
+    categories: [],
+  });
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getAllProducts();
-        setProducts(response.data.products);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (isOpen) {
-      fetchProducts();
+    if (!isOpen) {
+      setQuery("");
+      setResults({
+        suggestions: [],
+        products: [],
+        categories: [],
+      });
+      return;
     }
-  }, [isOpen]);
+
+    if (!query.trim()) {
+      setResults({
+        suggestions: [],
+        products: [],
+        categories: [],
+      });
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        const response = await searchProducts(query);
+
+        setResults({
+          suggestions: response.data.suggestions || [],
+          products: response.data.products || [],
+          categories: response.data.categories || [],
+        });
+      } catch (err) {
+        console.error(err);
+         setResults({
+        suggestions: [],
+        products: [],
+        categories: [],
+      });
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query, isOpen]);
+
   return (
     <>
-      {/* Overlay */}
       <div
         className={`search-overlay ${isOpen ? "show" : ""}`}
         onClick={onClose}
       />
 
-      {/* Drawer */}
       <div className={`search-drawer ${isOpen ? "open" : ""}`}>
         <div className="drawer-header">
           <div className="drawer-search">
@@ -44,9 +71,9 @@ const SearchDrawer = ({ isOpen, onClose }) => {
 
             <input
               type="text"
-              placeholder="Search products..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search for kids wear..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               autoFocus={isOpen}
             />
           </div>
@@ -57,24 +84,100 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         </div>
 
         <div className="drawer-content">
-          <h3>TRENDING SEARCHES</h3>
 
-          <ul className="trending-list">
-            <li>Winter Wear</li>
-            <li>New Arrivals</li>
-            <li>Best Sellers</li>
-            <li>Party Wear</li>
-          </ul>
+          {!query && (
+            <>
+              <h3>TRENDING SEARCHES</h3>
 
-          <hr />
+              <ul className="trending-list">
+                <li onClick={() => setQuery("T-Shirt")}>T-Shirts</li>
+                <li onClick={() => setQuery("Jeans")}>Jeans</li>
+                <li onClick={() => setQuery("Frock")}>Frocks</li>
+                <li onClick={() => setQuery("Shoes")}>Shoes</li>
+              </ul>
+            </>
+          )}
 
-          <h2>SUGGESTED FOR YOU</h2>
+          {results.suggestions.length > 0 && (
+            <>
+              <h3>SUGGESTIONS</h3>
 
-          <div className="suggested-products">
-            {filteredProducts.map((product) => (
-              <ProductListCard key={product.id} product={product} />
-            ))}
-          </div>
+              <div className="suggestions">
+                {results.suggestions.map((item) => (
+                  <p
+                    key={item}
+                    onClick={() => setQuery(item)}
+                  >
+                    🔍 {item}
+                  </p>
+                ))}
+              </div>
+            </>
+          )}
+
+          {results.categories.length > 0 && (
+            <>
+              <h3>CATEGORIES</h3>
+
+              <div className="categories">
+                {results.categories.map((category) => (
+                  <Link
+                    key={category}
+                    to={`/category/${category}`}
+                    onClick={onClose}
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+
+          
+
+          {results.products.length > 0 && (
+            <>
+              <h3>PRODUCTS</h3>
+
+              
+
+              <div className="suggested-products">
+                {results.products.map((product) => (
+                  <ProductListCard
+                    key={product.id}
+                    product={product}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {
+  query &&
+  results.suggestions.length === 0 &&
+  results.products.length === 0 &&
+  results.categories.length === 0 && (
+    <div className="no-search-results">
+      <div className="no-search-icon">🔍</div>
+
+      <h3>No results found</h3>
+
+      <p>
+        We couldn't find anything matching
+        <strong> "{query}"</strong>.
+      </p>
+
+      <span>Try searching for:</span>
+
+      <div className="search-tags">
+        <button onClick={() => setQuery("T-Shirt")}>T-Shirts</button>
+        <button onClick={() => setQuery("Jeans")}>Jeans</button>
+        <button onClick={() => setQuery("Shirt")}>Shirts</button>
+        <button onClick={() => setQuery("Dress")}>Dresses</button>
+      </div>
+    </div>
+  )}
+
         </div>
       </div>
     </>

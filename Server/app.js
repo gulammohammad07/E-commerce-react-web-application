@@ -9,6 +9,9 @@ import authRoutes from "./routes/authRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import megaMenuRoutes from "./routes/megaMenuRoutes.js";
+import searchRoutes from "./routes/searchRoutes.js";
+
+
 
 
 // dotenv.config({
@@ -54,6 +57,9 @@ app.use("/auth", authRoutes);
 app.use("/orders", orderRoutes);
 
 app.use("/payment", paymentRoutes);
+
+//search
+app.use("/search", searchRoutes);
 
 // Home Route
 app.get("/", (req, res) => {

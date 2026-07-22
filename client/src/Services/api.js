@@ -28,6 +28,10 @@ export const processPayment = ({ nonce, amount }) =>
     amount,
   }) 
 
+  //Search
+  export const searchProducts = (query) =>
+  api.get(`/search?q=${query}`);
+
 
 export const API_BASE_URL = BASE_URL;
 
