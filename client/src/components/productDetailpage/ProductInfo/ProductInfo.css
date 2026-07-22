@@ -3,7 +3,6 @@
     max-width: 520px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
 }
 
 /* Product Name */

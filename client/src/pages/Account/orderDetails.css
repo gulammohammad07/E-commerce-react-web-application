@@ -169,7 +169,7 @@
 .price-row {
   display: flex;
   justify-content: space-between;
-  margin: 14px 0;
+  margin: 2px 0;
 }
 
 .price-row.total {

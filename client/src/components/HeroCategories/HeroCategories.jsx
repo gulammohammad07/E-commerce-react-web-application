@@ -8,7 +8,7 @@ const HeroCategories = () => {
       {homeCategories.map((category) => (
         <Link
           key={category.id}
-          to={`/category/${category.slug}`}
+          to={`/products?category=${category.slug}`}
           className="hero-card"
         >
           <img src={category.image} alt={category.title} />
