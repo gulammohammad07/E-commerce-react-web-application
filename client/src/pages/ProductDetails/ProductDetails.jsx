@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import "./ProductDetails.css";
 
@@ -11,27 +11,43 @@ import ProductCarousel from "../../components/ProductCarousel/ProductCarousel";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  console.log("ID:", id);
+  const { state } = useLocation();
 
   const [product, setProduct] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const productFromListing = state?.product;
+
+    // The PLP has already loaded this object, so render it immediately after
+    // navigation instead of depending on a second request to populate the PDP.
+    if (productFromListing && String(productFromListing.id) === String(id)) {
+      setProduct(productFromListing);
+      setLoading(false);
+      return;
+    }
+
     const fetchProduct = async () => {
+      setLoading(true);
+
       try {
         const response = await getProductById(id);
 
-        setProduct(response.data.product);
+        // Supports both the MockAPI response (the product directly) and the
+        // local API response ({ success, product }) for direct page visits.
+        setProduct(response.data.product ?? response.data);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching product:", error);
+        setProduct(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProduct();
-  }, [id]);
+    if (id) {
+      fetchProduct();
+    }
+  }, [id, state]);
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -43,20 +59,20 @@ const ProductDetails = () => {
 
   return (
     <div className="product-details-page">
-      <Breadcrumb productName={product.name}  />
+      <Breadcrumb productName={product.name} />
 
       <div className="pdp-container">
         <div className="pdp-content">
-          {/* Left Side - Product Images */}
-          <ProductGallery images={product.images} productName={product.name} />
+          <ProductGallery
+            images={product.images}
+            productName={product.name}
+          />
 
-          {/* Right Side - Product Info */}
           <ProductInfo product={product} />
         </div>
+      </div>
 
-      </div>\
-
-      <ProductCarousel></ProductCarousel>
+      <ProductCarousel />
     </div>
   );
 };

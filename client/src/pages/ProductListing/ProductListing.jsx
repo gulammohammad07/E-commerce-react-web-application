@@ -1,21 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import "./ProductListing.css";
 
 import { getAllProducts } from "../../Services/api";
 
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import FilterSidebar from "../../components/FilterSidebar/FilterSidebar";
 import SortDropdown from "../../components/SortDropdown/SortDropdown";
 import ProductGrid from "../../components/ProductGrid/ProductGrid";
 import Pagination from "../../components/Pagination/Pagination";
-// import CollectionBanner from "../../components/ProductListing/CollectionBanner";
+import HeroCarousel from "../../components/HeroCarousel/HeroCarousel";
 
 const ProductListing = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [filters, setFilters] = useState({
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category");
+
+  const [filters] = useState({
     category: [],
     ageGroup: [],
     size: [],
@@ -33,9 +36,9 @@ const ProductListing = () => {
     const fetchProducts = async () => {
       try {
         const response = await getAllProducts();
-        setProducts(response.data.products);
+        setProducts(response.data);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
@@ -44,41 +47,55 @@ const ProductListing = () => {
     fetchProducts();
   }, []);
 
+  // Reset pagination when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
   // Filter + Sort
   const filteredProducts = useMemo(() => {
     let updatedProducts = [...products];
 
-    // Category
+    // Filter by category from URL
+    if (selectedCategory) {
+      updatedProducts = updatedProducts.filter(
+        (product) =>
+          product.category.toLowerCase() ===
+          selectedCategory.toLowerCase()
+      );
+    }
+
+    // Sidebar Category Filter
     if (filters.category.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.category.includes(product.category),
+        filters.category.includes(product.category)
       );
     }
 
     // Age Group
     if (filters.ageGroup.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.ageGroup.includes(product.ageGroup),
+        filters.ageGroup.includes(product.ageGroup)
       );
     }
 
     // Size
     if (filters.size.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        product.size.some((size) => filters.size.includes(size)),
+        product.size.some((size) => filters.size.includes(size))
       );
     }
 
     // Color
     if (filters.color.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.color.includes(product.color),
+        filters.color.includes(product.color)
       );
     }
 
     // Price
     updatedProducts = updatedProducts.filter(
-      (product) => product.price <= filters.price,
+      (product) => product.price <= filters.price
     );
 
     // Sorting
@@ -100,27 +117,26 @@ const ProductListing = () => {
     }
 
     return updatedProducts;
-  }, [products, filters, sortBy]);
+  }, [products, filters, sortBy, selectedCategory]);
 
   // Pagination
   const lastIndex = currentPage * productsPerPage;
   const firstIndex = lastIndex - productsPerPage;
-
   const currentProducts = filteredProducts.slice(firstIndex, lastIndex);
 
   return (
     <div className="plp-container">
       <Breadcrumb />
 
-      {/* <CollectionBanner
-        title="ALL PRODUCTS"
+      <HeroCarousel
+        title={selectedCategory || "ALL PRODUCTS"}
         subtitle="Discover Premium Styles for Every Little Trendsetter"
         image="https://images.pexels.com/photos/3662667/pexels-photo-3662667.jpeg"
-      /> */}
+      />
 
       <div className="plp-header">
         <div>
-          <h2>All Products</h2>
+          <h2>{selectedCategory || "All Products"}</h2>
           <p>{filteredProducts.length} Products Found</p>
         </div>
 
@@ -131,6 +147,8 @@ const ProductListing = () => {
         <main className="plp-products">
           {loading ? (
             <div className="loading">Loading Products...</div>
+          ) : filteredProducts.length === 0 ? (
+            <div className="loading">No products found.</div>
           ) : (
             <>
               <ProductGrid products={currentProducts} />
