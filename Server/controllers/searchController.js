@@ -3,14 +3,14 @@ import products from "../data/products.js";
 export const globalSearch = (req, res) => {
   const query = req.query.q?.trim().toLowerCase();
 
-  if (!query) {
-    return res.json({
-      success: true,
-      suggestions: [],
-      products: [],
-      categories: [],
-    });
-  }
+ if (!query) {
+  return res.json({
+    success: true,
+    suggestions: [],
+    products: products.slice(0, 8), // ya jitne products dikhane hain
+    categories: [],
+  });
+}
 
   // Products
   const matchedProducts = products.filter((product) => {

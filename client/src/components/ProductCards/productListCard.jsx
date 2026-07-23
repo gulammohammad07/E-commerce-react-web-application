@@ -12,10 +12,10 @@ const ProductListCard = ({ product }) => {
   const discount =
     product.discountPrice && product.discountPrice > product.price
       ? Math.round(
-          ((product.discountPrice - product.price) /
-            product.discountPrice) *
-            100
-        )
+        ((product.discountPrice - product.price) /
+          product.discountPrice) *
+        100
+      )
       : 0;
 
   return (

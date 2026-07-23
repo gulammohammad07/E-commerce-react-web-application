@@ -159,7 +159,8 @@
 .account-dropdown {
   position: absolute;
   right: 0;
-  top: 45px;
+   top: 100%;      /* 45px ki jagah */
+  margin-top: 0;
   width: 200px;
   background: white;
   border: 1px solid #eee;
