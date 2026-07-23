@@ -6,7 +6,12 @@ const products = [
     subCategory: "T-Shirts",
     ageGroup: "4-5 Years",
     size: ["4Y", "5Y"],
-    color: "Navy",
+    colors: [
+  "#1B2A5B",
+  "#000000",
+  "#F44336",
+  "#4CAF50"
+],
     price: 449,
     rating: 4.5,
      "images": [
@@ -22,7 +27,12 @@ const products = [
     subCategory: "T-Shirts",
     ageGroup: "6-7 Years",
     size: ["6Y", "7Y"],
-    color: "Green",
+    colors: [
+  "#1B2A5B",
+  "#000000",
+  "#F44336",
+  "#4CAF50"
+],
     price: 599,
     rating: 4.4,
      "images": [
@@ -38,7 +48,12 @@ const products = [
     subCategory: "Jackets",
     ageGroup: "8-10 Years",
     size: ["8Y", "10Y"],
-    color: "Blue",
+    colors: [
+  "#1B2A5B",
+  "#000000",
+  "#F44336",
+  "#4CAF50"
+],
     price: 999,
     rating: 4.6,
      "images": [
@@ -53,7 +68,12 @@ const products = [
     subCategory: "Hoodies",
     ageGroup: "10-12 Years",
     size: ["10Y", "12Y"],
-    color: "Yellow",
+    colors: [
+  "#1B2A5B",
+  "#000000",
+  "#F44336",
+  "#4CAF50"
+],
     price: 899,
     rating: 4.3,
      "images": [

@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./SearchDrawer.css";
 
-import ProductListCard from "../ProductCards/productListCard";
 import { searchProducts } from "../../Services/api";
+import SearchProductCard from "../ProductCards/SearchProductCard/SearchProductCard";
 
 const SearchDrawer = ({ isOpen, onClose }) => {
+
   const [query, setQuery] = useState("");
 
   const [results, setResults] = useState({
@@ -26,14 +27,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
       return;
     }
 
-    if (!query.trim()) {
-      setResults({
-        suggestions: [],
-        products: [],
-        categories: [],
-      });
-      return;
-    }
+
 
     const timer = setTimeout(async () => {
       try {
@@ -46,16 +40,18 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         });
       } catch (err) {
         console.error(err);
-         setResults({
-        suggestions: [],
-        products: [],
-        categories: [],
-      });
+        setResults({
+          suggestions: [],
+          products: [],
+          categories: [],
+        });
       }
     }, 300);
 
     return () => clearTimeout(timer);
   }, [query, isOpen]);
+
+
 
   return (
     <>
@@ -133,19 +129,18 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             </>
           )}
 
-          
+
 
           {results.products.length > 0 && (
             <>
-              <h3>PRODUCTS</h3>
-
-              
+              <h3>{query ? "PRODUCTS" : "SUGGESTED FOR YOU"}</h3>
 
               <div className="suggested-products">
                 {results.products.map((product) => (
-                  <ProductListCard
+                  <SearchProductCard
                     key={product.id}
                     product={product}
+                    compact
                   />
                 ))}
               </div>
@@ -153,30 +148,30 @@ const SearchDrawer = ({ isOpen, onClose }) => {
           )}
 
           {
-  query &&
-  results.suggestions.length === 0 &&
-  results.products.length === 0 &&
-  results.categories.length === 0 && (
-    <div className="no-search-results">
-      <div className="no-search-icon">🔍</div>
+            query &&
+            results.suggestions.length === 0 &&
+            results.products.length === 0 &&
+            results.categories.length === 0 && (
+              <div className="no-search-results">
+                <div className="no-search-icon">🔍</div>
 
-      <h3>No results found</h3>
+                <h3>No results found</h3>
 
-      <p>
-        We couldn't find anything matching
-        <strong> "{query}"</strong>.
-      </p>
+                <p>
+                  We couldn't find anything matching
+                  <strong> "{query}"</strong>.
+                </p>
 
-      <span>Try searching for:</span>
+                <span>Try searching for:</span>
 
-      <div className="search-tags">
-        <button onClick={() => setQuery("T-Shirt")}>T-Shirts</button>
-        <button onClick={() => setQuery("Jeans")}>Jeans</button>
-        <button onClick={() => setQuery("Shirt")}>Shirts</button>
-        <button onClick={() => setQuery("Dress")}>Dresses</button>
-      </div>
-    </div>
-  )}
+                <div className="search-tags">
+                  <button onClick={() => setQuery("T-Shirt")}>T-Shirts</button>
+                  <button onClick={() => setQuery("Jeans")}>Jeans</button>
+                  <button onClick={() => setQuery("Shirt")}>Shirts</button>
+                  <button onClick={() => setQuery("Dress")}>Dresses</button>
+                </div>
+              </div>
+            )}
 
         </div>
       </div>
