@@ -57,45 +57,45 @@ const ProductListing = () => {
     let updatedProducts = [...products];
 
     // Filter by category from URL
-    if (selectedCategory) {
+    // Filter by category from URL
+    if (selectedCategory && selectedCategory.toLowerCase() !== "all") {
       updatedProducts = updatedProducts.filter(
         (product) =>
-          product.category.toLowerCase() ===
-          selectedCategory.toLowerCase()
+          product.category.toLowerCase() === selectedCategory.toLowerCase(),
       );
     }
 
     // Sidebar Category Filter
     if (filters.category.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.category.includes(product.category)
+        filters.category.includes(product.category),
       );
     }
 
     // Age Group
     if (filters.ageGroup.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.ageGroup.includes(product.ageGroup)
+        filters.ageGroup.includes(product.ageGroup),
       );
     }
 
     // Size
     if (filters.size.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        product.size.some((size) => filters.size.includes(size))
+        product.size.some((size) => filters.size.includes(size)),
       );
     }
 
     // Color
     if (filters.color.length > 0) {
       updatedProducts = updatedProducts.filter((product) =>
-        filters.color.includes(product.color)
+        filters.color.includes(product.color),
       );
     }
 
     // Price
     updatedProducts = updatedProducts.filter(
-      (product) => product.price <= filters.price
+      (product) => product.price <= filters.price,
     );
 
     // Sorting
