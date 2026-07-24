@@ -62,15 +62,15 @@ const ProductDetails = () => {
       <Breadcrumb productName={product.name} />
 
       <div className="pdp-container">
-        <div className="pdp-content">
-          <ProductGallery
-            images={product.images}
-            productName={product.name}
-          />
+    <ProductGallery
+        images={product.images}
+        productName={product.name}
+    />
 
-          <ProductInfo product={product} />
-        </div>
-      </div>
+    <ProductInfo
+        product={product}
+    />
+</div>
 
       <ProductCarousel />
     </div>

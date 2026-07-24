@@ -41,9 +41,9 @@ function ProductCarousel() {
                 slidesPerView={5}
                 slidesPerGroup={5}
                 // Swiper needs enough slides to duplicate a complete group.
-                loop={products.length >= 10}
-                 modules={[Navigation]}
-               navigation={true}
+            //     loop={products.length >= 10}
+            //      modules={[Navigation]}
+            //    navigation={true}
 
             >
                 {products.map((product) => (
