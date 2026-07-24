@@ -7,12 +7,19 @@ const api = axios.create({
     withCredentials: true,
 });
 
-export const getAllProducts = () => api.get("/products");
 
-export const getProductById = (id) => api.get(`/products/${id}`);
+// 👇 NEW MockAPI instance
+const mockApi = axios.create({
+  baseURL: "https://6a61ddf0da10c59c1809ef61.mockapi.io",
+});
 
-export const getAllBanners = () => api.get("/banners");
-export const getAllCategories = () => api.get("/categories");
+
+export const getAllProducts = () => mockApi.get("/products");
+
+export const getProductById = (id) => mockApi.get(`/products/${id}`);
+
+export const getAllBanners = () => mockApi.get("/banners");
+export const getAllCategories = () => mockApi.get("/categories");
 
 export const getCurrentUser = () => api.get("/auth/me");
 export const logoutUser = () => api.post("/auth/logout");

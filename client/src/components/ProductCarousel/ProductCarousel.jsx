@@ -18,7 +18,9 @@ function ProductCarousel() {
 
                 const response = await getAllProducts();
 
-                setProducts(response.data.products);
+                // MockAPI returns an array, while the local API returns
+                // { success, products }. Support either response shape.
+                setProducts(response.data.products ?? response.data ?? []);
 
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -38,8 +40,10 @@ function ProductCarousel() {
                 spaceBetween={10}
                 slidesPerView={5}
                 slidesPerGroup={5}
-                loop={true}
-                 
+                // Swiper needs enough slides to duplicate a complete group.
+                loop={products.length >= 10}
+                 modules={[Navigation]}
+               navigation={true}
 
             >
                 {products.map((product) => (

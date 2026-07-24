@@ -12,18 +12,21 @@ const ProductListCard = ({ product }) => {
   const discount =
     product.discountPrice && product.discountPrice > product.price
       ? Math.round(
-        ((product.discountPrice - product.price) /
-          product.discountPrice) *
-        100
-      )
+          ((product.discountPrice - product.price) / product.discountPrice) *
+            100,
+        )
       : 0;
+
+  console.log(product);
+  console.log("Product Object:", product);
+  console.log("Product ID:", product.id);
 
   return (
     <div className="product-card">
       <div className="image-wrapper">
-
         <Link
           to={`/product/${product.id}`}
+          state={{ product }}
           className="product-image"
         >
           <Swiper
@@ -35,10 +38,7 @@ const ProductListCard = ({ product }) => {
           >
             {product.images?.map((image, index) => (
               <SwiperSlide key={index}>
-                <img
-                  src={image}
-                  alt={product.name}
-                />
+                <img src={image} alt={product.name} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -51,36 +51,24 @@ const ProductListCard = ({ product }) => {
         {/* Hover Size Panel */}
 
         <div className="size-overlay">
-
-          <span className="size-heading">
-            SELECT SIZE
-          </span>
+          <span className="size-heading">SELECT SIZE</span>
 
           <div className="size-list">
-
             {product.size?.map((size) => (
-              <button
-                key={size}
-                className="size-btn"
-              >
+              <button key={size} className="size-btn">
                 {size}
               </button>
             ))}
-
           </div>
-
         </div>
-
       </div>
 
       <div className="product-info">
-
-        <p className="product-brand">
-          {product.brand}
-        </p>
+        <p className="product-brand">{product.brand}</p>
 
         <Link
           to={`/product/${product.id}`}
+          state={{ product }}
           className="product-title"
         >
           {product.name}
@@ -92,25 +80,16 @@ const ProductListCard = ({ product }) => {
         </div>
 
         <div className="price-row">
-
-          <span className="sale-price">
-            ₹{product.price}
-          </span>
+          <span className="sale-price">₹{product.price}</span>
 
           {product.discountPrice > product.price && (
             <>
-              <span className="original-price">
-                ₹{product.discountPrice}
-              </span>
+              <span className="original-price">₹{product.discountPrice}</span>
 
-              <span className="discount">
-                {discount}% OFF
-              </span>
+              <span className="discount">{discount}% OFF</span>
             </>
           )}
-
         </div>
-
       </div>
     </div>
   );

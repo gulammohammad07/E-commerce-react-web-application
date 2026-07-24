@@ -28,34 +28,29 @@ function Navbar() {
 
   const cartCount = cart.items.reduce(
     (total, item) => total + item.quantity,
-    0
+    0,
   );
 
   return (
-    <div
-      className="navbar-wrapper"
-      onMouseLeave={() => setActiveMenu(null)}
-    >
+    <div className="navbar-wrapper" onMouseLeave={() => setActiveMenu(null)}>
       <nav className="navbar">
-
         {/* LEFT */}
         <div className="nav-left">
-
           <div
             className="nav-item"
             onMouseEnter={() => setActiveMenu(megaMenu[0])}
           >
-            <Link to="/products">BOYS</Link>
+            <Link to="/products?category=Babies">BABY</Link>
           </div>
 
           <div
             className="nav-item"
             onMouseEnter={() => setActiveMenu(megaMenu[1])}
           >
-            <Link to="/products">GIRLS</Link>
+            <Link to="/products?category=Boys">BABA</Link>
           </div>
 
-          <div className="dropdown">
+          {/* <div className="dropdown">
             <button className="menu-btn">
               SHOP <FaChevronDown />
             </button>
@@ -67,8 +62,7 @@ function Navbar() {
               <Link to="/category/jeans">Jeans</Link>
               <Link to="/category/dresses">Dresses</Link>
             </div>
-          </div>
-
+          </div> */}
         </div>
 
         {/* CENTER */}
@@ -83,29 +77,19 @@ function Navbar() {
         {/* RIGHT */}
 
         <div className="nav-right">
-
-          <div
-            className="search-box"
-            onClick={() => setIsSearchOpen(true)}
-          >
+          <div className="search-box" onClick={() => setIsSearchOpen(true)}>
             <FaSearch />
 
-            <input
-              type="text"
-              placeholder="Search..."
-              readOnly
-            />
+            <input type="text" placeholder="Search..." readOnly />
           </div>
 
           {isAuthenticated ? (
             <div className="account-menu">
-
               <button className="account-trigger">
                 <FaUserCircle />
               </button>
 
               <div className="account-dropdown">
-
                 <Link to="/account">
                   <FaUserCircle />
                   My Profile
@@ -120,9 +104,7 @@ function Navbar() {
                   <FaSignOutAlt />
                   Logout
                 </button>
-
               </div>
-
             </div>
           ) : (
             <Link to="/login" className="icon-btn">
@@ -137,16 +119,9 @@ function Navbar() {
           <Link to="/cart" className="icon-btn cart-icon">
             <FaShoppingCart />
 
-            {cartCount > 0 && (
-              <span className="cart-count">
-                {cartCount}
-              </span>
-            )}
-
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </Link>
-
         </div>
-
       </nav>
 
       {/* Mega Menu */}
