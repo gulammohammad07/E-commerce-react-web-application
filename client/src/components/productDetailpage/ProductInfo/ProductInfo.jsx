@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { FaStar, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import "./ProductInfo.css";
 import useCart from "../../../hooks/useCart";
 
 const ProductInfo = ({ product }) => {
-  const [selectedSize, setSelectedSize] = useState("");
-  const { addToCart, actionLoading } = useCart();
+  const [selectedSize, setSelectedSize] = useState(
+    product?.size?.[0] || ""
+  );
   const [quantity, setQuantity] = useState(1);
+   const [selectedImage, setSelectedImage] = useState(
+    product?.images?.[0] || ""
+  );
+
+  const { addToCart, actionLoading } = useCart();
 
   if (!product) return null;
 
@@ -29,84 +35,166 @@ const ProductInfo = ({ product }) => {
     });
   };
 
+  const discount =
+    product.oldPrice &&
+    Math.round(
+      ((product.oldPrice - product.price) / product.oldPrice) * 100
+    );
+
   return (
     <div className="product-info">
+      {/* Category */}
+
       <p className="product-category">
         {product.category} / {product.subCategory}
       </p>
 
-      <h1 className="product-name">
-        {product.name}
-      </h1>
+      {/* Name */}
 
-      <div className="product-rating">
-        <FaStar className="star-icon" />
-        <span>{product.rating}</span>
-      </div>
+      <h1 className="product-name">{product.name}</h1>
+
+      {/* Price */}
 
       <div className="price-section">
         <span className="current-price">
-          Rs.{product.price}
+          ₹{product.price}
         </span>
 
         {product.oldPrice && (
-          <span className="old-price">
-            Rs.{product.oldPrice}
-          </span>
+          <>
+            <span className="old-price">
+              ₹{product.oldPrice}
+            </span>
+
+            <span className="discount-badge">
+              Save {discount}%
+            </span>
+          </>
         )}
       </div>
 
-      <div className="info-section">
-        <h4>Color</h4>
-        <span className="color-name">
-          {product.color}
-        </span>
+      <p className="tax-text">
+        Incl. of all taxes
+      </p>
+
+      {/* Color */}
+
+      <div className="info-block">
+        <h4>
+          COLOR : <span>{product.color}</span>
+        </h4>
+         <div className="color-variants">
+
+        {product.images.map((img, index) => (
+
+          <div
+            key={index}
+            className={`variant-card ${selectedImage === img ? "active" : ""
+              }`}
+            onClick={() => setSelectedImage(img)}
+          >
+
+            <img src={img} />
+
+          </div>
+
+        ))}
+
+      </div>
       </div>
 
-      <div className="info-section">
-        <h4>Select Size</h4>
+      {/* Size */}
 
-        <div className="size-list">
-          {product.size?.map((size) => (
-            <button
-              key={size}
-              className={`size-btn ${selectedSize === size ? "active" : ""}`}
-              onClick={() => setSelectedSize(size)}
-              type="button"
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+      <div className="size-header">
+        <h4>SIZE</h4>
+
+        
+          
       </div>
 
-      <div className="info-section">
-        <h4>Quantity</h4>
+      <div className="size-list">
+        {product.size?.map((size) => (
+          <button
+            key={size}
+            type="button"
+            className={`size-btn ${
+              selectedSize === size ? "active" : ""
+            }`}
+            onClick={() => setSelectedSize(size)}
+          >
+            {size}
+          </button>
+        ))}
+      </div>
+
+      {/* Quantity */}
+
+      <div className="quantity-section">
+        <h4>QUANTITY</h4>
 
         <div className="quantity-box">
-          <button onClick={decreaseQty} type="button">
-            -
+          <button
+            type="button"
+            onClick={decreaseQty}
+          >
+            −
           </button>
 
           <span>{quantity}</span>
 
-          <button onClick={increaseQty} type="button">
+          <button
+            type="button"
+            onClick={increaseQty}
+          >
             +
           </button>
         </div>
       </div>
 
-      <div className="action-buttons">
-        <button
-          className="cart-button"
-          onClick={handleAddToCart}
-          disabled={actionLoading}
-          type="button"
-        >
-          <FaShoppingCart />
-          Add To Cart
-        </button>
-      </div>
+      {/* Cart */}
+
+      <button
+        className="cart-button"
+        onClick={handleAddToCart}
+        disabled={actionLoading}
+        type="button"
+      >
+        <FaShoppingCart />
+        {actionLoading ? "ADDING..." : "ADD TO CART"}
+      </button>
+
+      {/* Accordions */}
+
+      <details open>
+        <summary>DESCRIPTION</summary>
+
+        <p>
+          {product.description ||
+            "Premium quality kids wear crafted with soft fabric for everyday comfort."}
+        </p>
+      </details>
+
+      <details>
+        <summary>SIZE GUIDE</summary>
+
+        <p>
+          Choose your child's regular size. If you're between
+          sizes, we recommend selecting the next size up.
+        </p>
+      </details>
+
+      <details>
+        <summary>SUPPLIER INFORMATION</summary>
+
+        <p>
+          <strong>Brand:</strong>{" "}
+          {product.brand || "Kids Wear"}
+        </p>
+
+        <p>
+          <strong>Country of Origin:</strong> India
+        </p>
+      </details>
     </div>
   );
 };
