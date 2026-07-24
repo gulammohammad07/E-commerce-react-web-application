@@ -31,8 +31,9 @@ const ProductInfo = ({ product }) => {
       productId: product.id,
       quantity,
       size: selectedSize,
-      color: product.color,
+      color: product?.color,
     });
+    
   };
 
   const discount =
