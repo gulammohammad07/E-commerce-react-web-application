@@ -1,36 +1,34 @@
 import { useState } from "react";
 import "./ProductGallery.css";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const ProductGallery = ({ images = [], productName }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const currentImage = selectedImage || images[0];
-
+  const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   return (
+    <>
     <div className="product-gallery">
-      <div className="thumbnail-list">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`thumbnail ${
-              currentImage === image ? "active" : ""
-            }`}
-            onClick={() => setSelectedImage(image)}
-          >
-            <img src={image} alt={`${productName}-${index}`} />
-          </div>
-        ))}
-      </div>
-
-      <div className="main-image">
-        {currentImage && (
+      {images.map((image, index) => (
+        <div className="gallery-item" key={index}>
           <img
-            src={currentImage}
-            alt={productName}
+            src={image}
+            alt={`${productName}-${index}`}
+            onClick={() => {
+              setCurrentIndex(index);
+              setOpen(true);
+            }}
           />
-        )}
-      </div>
+        </div>
+      ))}
     </div>
+      <Lightbox
+    open={open}
+    close={() => setOpen(false)}
+    index={currentIndex}
+    slides={images.map((img) => ({ src: img }))}
+  />
+    </>
   );
 };
 
