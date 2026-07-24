@@ -22,6 +22,8 @@ function CategoryCards() {
   }, []);
 
   return (
+    <>
+      <h2>Shop all</h2>
     <section className="category-section">
       <h2>Shop by Category</h2>
 
@@ -42,6 +44,7 @@ function CategoryCards() {
         ))}
       </div>
     </section>
+    </>
   );
 }
 

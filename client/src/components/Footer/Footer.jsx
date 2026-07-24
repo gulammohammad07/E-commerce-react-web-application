@@ -10,19 +10,19 @@ import {
   FaGooglePay,
 } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
+
 import "./Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-
       <div className="footer-logo">
         <h1>LittleTrendz</h1>
         <p>Premium Fashion for Little Ones</p>
       </div>
 
       <div className="footer-grid">
-
         <div>
           <h3>SHOP</h3>
 
@@ -44,15 +44,15 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3>PARENT GUIDE</h3>
+          <h3>CUSTOMER SERVICE</h3>
 
-          <a href="#">Size Guide</a>
-          <a href="#">Baby Care Tips</a>
-          <a href="#">Fabric Care</a>
-          <a href="#">Gift Cards</a>
-          <a href="#">Safety & Quality</a>
+          <Link to="/shipping-policy">Shipping Policy</Link>
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/returns-exchange-policy">Returns & Exchange Policy</Link>
+          <Link to="/raise-return-request">Raise a Return Request</Link>
+          <Link to="/terms-and-conditions">Terms & Conditions</Link>
+          <Link to="/contact-us">Contact Us</Link>
         </div>
-
         <div>
           <h3>ABOUT US</h3>
 
@@ -66,17 +66,25 @@ const Footer = () => {
         <div>
           <h3>FOLLOW US</h3>
 
-          <a href="#"><FaInstagram /> Instagram</a>
-          <a href="#"><FaFacebookF /> Facebook</a>
-          <a href="#"><FaPinterestP /> Pinterest</a>
-          <a href="#"><FaYoutube /> YouTube</a>
-          <a href="#"><FaWhatsapp /> WhatsApp</a>
+          <a href="#">
+            <FaInstagram /> Instagram
+          </a>
+          <a href="#">
+            <FaFacebookF /> Facebook
+          </a>
+          <a href="#">
+            <FaPinterestP /> Pinterest
+          </a>
+          <a href="#">
+            <FaYoutube /> YouTube
+          </a>
+          <a href="#">
+            <FaWhatsapp /> WhatsApp
+          </a>
         </div>
-
       </div>
 
       <div className="footer-bottom">
-
         <p>© 2026 LittleTrendz. All Rights Reserved.</p>
 
         <div className="payment-icons">
@@ -85,9 +93,7 @@ const Footer = () => {
           <FaCcPaypal />
           <FaGooglePay />
         </div>
-
       </div>
-
     </footer>
   );
 };
