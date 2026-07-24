@@ -43,18 +43,18 @@ const ProductDetails = () => {
 
   return (
     <div className="product-details-page">
-      <Breadcrumb productName={product.name}  />
+      <Breadcrumb productName={product.name} />
 
       <div className="pdp-container">
-        <div className="pdp-content">
-          {/* Left Side - Product Images */}
-          <ProductGallery images={product.images} productName={product.name} />
+        <ProductGallery
+          images={product.images}
+          productName={product.name}
+        />
 
-          {/* Right Side - Product Info */}
-          <ProductInfo product={product} />
-        </div>
-
-      </div>\
+        <ProductInfo
+          product={product}
+        />
+      </div>
 
       <ProductCarousel></ProductCarousel>
     </div>

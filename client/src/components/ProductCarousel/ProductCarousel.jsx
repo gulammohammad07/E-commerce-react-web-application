@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "./ProductCarousel.css";
 
@@ -40,8 +39,7 @@ function ProductCarousel() {
                 slidesPerView={5}
                 slidesPerGroup={5}
                 loop={true}
-                 modules={[Navigation]}
-               navigation={true}
+                 
 
             >
                 {products.map((product) => (
