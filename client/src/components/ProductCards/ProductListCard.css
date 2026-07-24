@@ -26,7 +26,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -110px;
+  /* bottom: -110px; */
 
   width: auto;
   box-sizing: border-box;
